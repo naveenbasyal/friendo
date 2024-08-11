@@ -1,4 +1,5 @@
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { dbConnect } from "@/lib/dbConnect";
 import Otp from "@/models/Otp";
 import User from "@/models/User";
 import { ApiResponse } from "@/types";
@@ -6,11 +7,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: NextRequest) {
+  await dbConnect();
   try {
     const { email } = await req.json();
 
     const user = await User.findOne({ email });
-    console.log("user", user);
+
     if (!user) {
       return NextResponse.json(
         {
@@ -20,9 +22,17 @@ export async function POST(req: NextRequest) {
         { status: 404 }
       );
     }
+    // check if we already have an otp for this email
+    const existingOtp = await Otp.findOne({ email });
+
+    if (existingOtp) {
+      // delete existing otp
+      await Otp.deleteOne({ email });
+    }
 
     // creating otp and unique id
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
     const expiry = new Date();
     expiry.setHours(new Date().getHours() + 1);
     const uniqueId = uuidv4();
@@ -42,6 +52,7 @@ export async function POST(req: NextRequest) {
       verifyCode: otp,
       username: user.username,
     });
+    console.log("emailResponse", emailResponse);
 
     if (!emailResponse) {
       const response: ApiResponse = {

@@ -36,7 +36,7 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 240, 10%, 4%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -73,6 +73,22 @@
   body {
     @apply bg-background text-foreground;
     caret-color: #eab308;
+    /* --dot-bg: #000000;
+    --dot-color: #333333;
+    --dot-size: 1.3px;
+    --dot-space: 16px; */
+    /* background: linear-gradient(
+          90deg,
+          var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+          transparent 1%
+        )
+        center / var(--dot-space) var(--dot-space),
+      linear-gradient(
+          var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+          transparent 1%
+        )
+        center / var(--dot-space) var(--dot-space),
+      var(--dot-color); */
   }
 }
 

@@ -19,6 +19,7 @@ import {
 
 import { createSession } from "@/lib/lib";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const Login = () => {
   const router = useRouter();
@@ -76,6 +77,7 @@ const Login = () => {
         const user = data.data.user;
         localStorage.setItem("user", JSON.stringify(user));
         router.push("/home");
+        router.refresh();
       } else {
         toast.error(data.message);
       }
@@ -84,12 +86,11 @@ const Login = () => {
       toast.error("An error occured while logging in. Please try again later.");
     } finally {
       setLoading(false);
-
     }
   };
   return (
     <div className="space-y-5 w-full">
-      <div className="border rounded-md p-4 md:px-6 md:py-8">
+      <div className="border bg-[#09090b] rounded-md p-4 md:px-6 md:py-8">
         <div className="space-y-3">
           <div className="mb-5 space-y-2">
             <h1
@@ -128,6 +129,10 @@ const Login = () => {
                     <InputOTPSlot index={5} />
                   </InputOTPGroup>
                 </InputOTP>
+                <Label className="text-green-500 text-sm">
+                  Otp has been sent to your email.
+                </Label>
+
                 <Button
                   disabled={loading || otp?.length !== 6}
                   onClick={handleLogin}
@@ -165,7 +170,7 @@ const Login = () => {
                   <Button
                     variant="default"
                     className="w-full md:w-auto flex items-center gap-x-2"
-                    disabled={loading  || email === ""}
+                    disabled={loading || email === ""}
                     onClick={sendOtp}
                   >
                     Send OTP{" "}

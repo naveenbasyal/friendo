@@ -5,7 +5,6 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import { getSession } from "@/lib/lib";
 import React from "react";
-import { UserType } from "@/types";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,10 +21,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={poppins.className}>
-        <Navbar />
+        {session && <Navbar />}
         <main className="p-3 md:p-5">{children}</main>
         <Toaster richColors />
       </body>

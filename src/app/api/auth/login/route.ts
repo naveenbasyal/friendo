@@ -1,3 +1,4 @@
+import { createSession } from "@/lib/lib";
 import Otp from "@/models/Otp";
 import User from "@/models/User";
 import { ApiResponse } from "@/types";
@@ -60,25 +61,9 @@ export async function POST(req: NextRequest) {
       success: true,
       data: { user },
     };
-    // set the cookies
-    const expires = new Date();
-    expires.setDate(expires.getDate() + 30);
-    const secretKey = new TextEncoder().encode(process.env.JWT_SECRET!);
+    await createSession(user);
 
-    const token = await new SignJWT({ ...user, expires })
-      .setProtectedHeader({
-        alg: "HS256",
-      })
-      .setIssuedAt()
-      .setExpirationTime("30d")
-      .sign(secretKey);
-
-    // set the cookies
-    cookies().set("session", token, { expires, httpOnly: true }); // able to set
-    const data = NextResponse.json(response, { status: 200 });
-    console.log("cookies-------------", cookies().get("session")); // able to read
-
-    return data;
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.log("Error", error);
     return NextResponse.json(

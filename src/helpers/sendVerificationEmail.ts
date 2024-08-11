@@ -25,6 +25,7 @@ export async function sendVerificationEmail({
       };
       return NextResponse.json(response, { status: 500 });
     }
+    console.log("sendemaildata",data)
     return true;
   } catch (error) {
     return NextResponse.json({ error });

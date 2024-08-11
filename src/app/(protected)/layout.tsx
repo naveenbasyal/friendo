@@ -6,9 +6,11 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex  gap-x-14 my-5">
-      <SideNav />
-      <div className="w-4/5">{children}</div>
+    <div className="grid grid-cols-12 gap-x-14 my-5">
+      <div className="lg:col-span-4 md:col-span-3 flex justify-center">
+        <SideNav />
+      </div>
+      <div className="md:col-span-6 lg:col-span-7">{children}</div>
     </div>
   );
 }

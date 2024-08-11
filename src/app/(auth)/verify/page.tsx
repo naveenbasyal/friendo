@@ -67,7 +67,7 @@ const VerifyUser = () => {
   };
   return (
     <div className="min-h-screen w-full space-y-5 flex flex-col items-center justify-center p-4">
-      <div className="border rounded-md w-full md:w-[50%] lg:w-[30%] p-5 space-y-4">
+      <div className="border rounded-md  lg:w-full p-5 space-y-4">
         <Label htmlFor="otp" className="text-lg font-medium">
           Verify Email
         </Label>

@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       if (existingUser.isVerified) {
         return NextResponse.json(
           {
-            message: `You are already registered !!`,
+            message: `This email is already registered.`,
             success: false,
           },
           { status: 400 }

@@ -19,6 +19,7 @@ export async function encrypt(payload: any) {
 }
 
 export async function decrypt(input: string): Promise<any> {
+  console.log("input", input);
   const { payload } = await jwtVerify(input, secretKey, {
     algorithms: ["HS256"],
   });
@@ -29,6 +30,7 @@ export async function decrypt(input: string): Promise<any> {
 export const logout = () => {
   // destroy the cookie
   cookies().set("session", "", { expires: new Date(0) });
+
   redirect("/login");
 };
 
@@ -69,5 +71,4 @@ export const createSession = async (user: UserType) => {
   const session = await encrypt({ ...user, expires });
   // save the session in a cookie
   cookies().set("session", session, { expires, httpOnly: true });
-  redirect("/home");
 };

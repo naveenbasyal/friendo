@@ -199,9 +199,9 @@ export default function SignUp() {
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong , please try again later ☹️");
+      setEmailDialog(false);
     } finally {
       setLoading(false);
-      setEmailDialog(false);
     }
   };
 
@@ -243,11 +243,9 @@ export default function SignUp() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="border rounded-md p-4 md:px-6 md:py-8">
+      <div className="border bg-[#09090b] rounded-md p-4 md:px-6 md:py-8">
         {currentStep === 1 ? (
           <div className="space-y-5">
-            {/* // TODO: Let them choose their avatar from  gravatar */}
-
             {/* _____ Username _____ */}
             <div className="grid w-full  items-center gap-1.5">
               <label htmlFor="name" className="font-semibold">

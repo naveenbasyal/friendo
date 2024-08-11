@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="w-full min-h-screen flex justify-center">
-      <div className="w-full md:w-[60%] lg:w-[40%] ">
+      <div className="w-full md:w-[60%] lg:w-[35%] ">
         <div className="mb-5 bg-white dark:bg-inherit">
           <h1
             className={`text-start text-yellow-500  text-7xl font-extrabold mt-5 ${redressed.className} `}

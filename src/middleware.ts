@@ -12,7 +12,7 @@ import { getUser } from "./actions/user";
 
 export { default } from "next-auth/middleware";
 
-// This function can be marked `async` if using `await` inside
+
 export async function middleware(request: NextRequest) {
   const session = await getSession();
 

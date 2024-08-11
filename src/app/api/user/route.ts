@@ -8,22 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   await dbConnect();
-
-  const session = cookies().get("session")?.value; // getting undefined
-  const session_1 = req.cookies.get("session")?.value; //getting undeined
-  console.log("get all", cookies().getAll());
-  console.log("session>>>>>>>>>>>>>>>>>>>>>>>>>>", session); // getting undefined
-
-  if (!session && !session_1)
-    return NextResponse.json(
-      { message: "User not found" },
-      {
-        status: 404,
-      }
-    );
-
-  const id = JSON.parse(session as string)?.id;
-  console.log("id", id); // getting undefined
+  const { id } = await req.json();
 
   try {
     const user = await User.findById(id);
